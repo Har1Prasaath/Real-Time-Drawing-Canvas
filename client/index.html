@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative Canvas - Real-time Drawing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🎨 Collaborative Canvas</h1>
+                <div class="connection-status">
+                    <span class="status-indicator" id="statusIndicator"></span>
+                    <span id="statusText">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-container">
+            <!-- Toolbar -->
+            <aside class="toolbar">
+                <div class="tool-section">
+                    <h3>Tools</h3>
+                    <div class="tool-buttons">
+                        <button id="brushTool" class="tool-btn active" title="Brush (B)">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M20.71 4.63l-1.34-1.34c-.39-.39-1.02-.39-1.41 0L9 12.25 11.75 15l8.96-8.96c.39-.39.39-1.02 0-1.41z"/>
+                                <path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3z"/>
+                            </svg>
+                        </button>
+                        <button id="eraserTool" class="tool-btn" title="Eraser (E)">
+                            <svg viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M16.24 3.56l4.95 4.94c.78.79.78 2.05 0 2.84L12 20.53a4.008 4.008 0 0 1-5.66 0L2.81 17c-.78-.79-.78-2.05 0-2.84l10.6-10.6c.79-.78 2.05-.78 2.83 0M4.22 15.58l3.54 3.53c.78.79 2.04.79 2.83 0l3.53-3.53-6.36-6.36-3.54 3.53c-.78.79-.78 2.05 0 2.83z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Color</h3>
+                    <input type="color" id="colorPicker" value="#000000" class="color-picker">
+                    <div class="preset-colors">
+                        <button class="color-preset" style="background: #000000" data-color="#000000"></button>
+                        <button class="color-preset" style="background: #FF0000" data-color="#FF0000"></button>
+                        <button class="color-preset" style="background: #00FF00" data-color="#00FF00"></button>
+                        <button class="color-preset" style="background: #0000FF" data-color="#0000FF"></button>
+                        <button class="color-preset" style="background: #FFFF00" data-color="#FFFF00"></button>
+                        <button class="color-preset" style="background: #FF00FF" data-color="#FF00FF"></button>
+                        <button class="color-preset" style="background: #00FFFF" data-color="#00FFFF"></button>
+                        <button class="color-preset" style="background: #FFFFFF; border: 1px solid #ddd" data-color="#FFFFFF"></button>
+                    </div>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Brush Size</h3>
+                    <input type="range" id="brushSize" min="1" max="50" value="3" class="slider">
+                    <div class="size-preview">
+                        <div id="sizePreview" class="size-preview-circle"></div>
+                        <span id="sizeValue">3px</span>
+                    </div>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Actions</h3>
+                    <button id="undoBtn" class="action-btn" title="Undo (Ctrl+Z)">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
+                        </svg>
+                        Undo
+                    </button>
+                    <button id="redoBtn" class="action-btn" title="Redo (Ctrl+Y)">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z"/>
+                        </svg>
+                        Redo
+                    </button>
+                    <button id="clearBtn" class="action-btn danger" title="Clear Canvas">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                        </svg>
+                        Clear All
+                    </button>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Performance</h3>
+                    <div class="performance-stats">
+                        <div class="stat-item">
+                            <span>FPS:</span>
+                            <span id="fpsCounter">60</span>
+                        </div>
+                        <div class="stat-item">
+                            <span>Latency:</span>
+                            <span id="latencyCounter">0ms</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Canvas Container -->
+            <div class="canvas-container">
+                <canvas id="canvas"></canvas>
+                <!-- Remote cursors will be rendered here -->
+                <div id="cursors"></div>
+            </div>
+
+            <!-- Users Panel -->
+            <aside class="users-panel">
+                <h3>Online Users (<span id="userCount">0</span>)</h3>
+                <div id="usersList" class="users-list"></div>
+                
+                <div class="room-info">
+                    <h4>Room</h4>
+                    <div class="room-id">
+                        <input type="text" id="roomIdInput" value="default" placeholder="Room ID">
+                        <button id="joinRoomBtn" class="small-btn">Join</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="canvas.js"></script>
+    <script src="websocket.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
