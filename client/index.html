@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collaborative Canvas - Real-time Drawing</title>
+    <title>Drawing Canvas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,10 +11,13 @@
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <h1>🎨 Collaborative Canvas</h1>
-                <div class="connection-status">
+                <h1>Drawing Board</h1>
+                <div class="header-controls">
+                    <div class="room-selector">
+                        <input type="text" id="roomIdInput" value="default" placeholder="Room ID">
+                        <button id="joinRoomBtn" class="join-room-btn">Join</button>
+                    </div>
                     <span class="status-indicator" id="statusIndicator"></span>
-                    <span id="statusText">Connecting...</span>
                 </div>
             </div>
         </header>
@@ -106,21 +109,13 @@
                 <canvas id="canvas"></canvas>
                 <!-- Remote cursors will be rendered here -->
                 <div id="cursors"></div>
-            </div>
-
-            <!-- Users Panel -->
-            <aside class="users-panel">
-                <h3>Online Users (<span id="userCount">0</span>)</h3>
-                <div id="usersList" class="users-list"></div>
                 
-                <div class="room-info">
-                    <h4>Room</h4>
-                    <div class="room-id">
-                        <input type="text" id="roomIdInput" value="default" placeholder="Room ID">
-                        <button id="joinRoomBtn" class="small-btn">Join</button>
-                    </div>
+                <!-- Floating Users Box -->
+                <div class="users-box">
+                    <h3>Online Users (<span id="userCount">0</span>)</h3>
+                    <div id="usersList" class="users-list"></div>
                 </div>
-            </aside>
+            </div>
         </div>
     </div>
 
