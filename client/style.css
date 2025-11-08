@@ -6,27 +6,26 @@
 }
 
 :root {
-    --primary-color: #5B8DBE;
-    --primary-hover: #4A7BA7;
-    --secondary-color: #52A77C;
-    --danger-color: #D97676;
+    --primary-color: #5B8CDB;
+    --secondary-color: #52B788;
+    --danger-color: #E76F51;
     
-    --bg-dark: #D4DAE1;
-    --bg-medium: #E5E9ED;
-    --bg-light: #EEF1F4;
-    --bg-lighter: #D8DDE3;
+    --bg-light: #F5F7FA;
+    --bg-medium: #E8EDF3;
+    --bg-dark: #D9E2EC;
+    --bg-darker: #C4D0DD;
     
-    --text-primary: #2C3E50;
-    --text-secondary: #546E7A;
-    --text-dim: #90A4AE;
-    --border-color: #C5CCD3;
+    --text-primary: #2D3748;
+    --text-secondary: #4A5568;
+    --text-dim: #718096;
+    --border-color: #CBD5E0;
     
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--bg-dark);
+    background: var(--bg-light);
     color: var(--text-primary);
     overflow: hidden;
     height: 100vh;
@@ -37,7 +36,6 @@ body {
     background: var(--bg-medium);
     border-bottom: 1px solid var(--border-color);
     padding: 1rem 2rem;
-    box-shadow: var(--shadow);
 }
 
 .header-content {
@@ -66,9 +64,9 @@ body {
 
 .room-selector input {
     padding: 0.4rem 0.8rem;
-    background: var(--bg-light);
+    background: white;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 4px;
     color: var(--text-primary);
     font-size: 0.9rem;
     width: 150px;
@@ -85,15 +83,14 @@ body {
     background: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
-    font-weight: 500;
-    transition: background 0.2s;
+    transition: opacity 0.2s;
 }
 
 .join-room-btn:hover {
-    background: var(--primary-hover);
+    opacity: 0.9;
 }
 
 .status-indicator {
@@ -155,8 +152,8 @@ body {
 }
 
 .tool-btn {
-    background: var(--bg-light);
-    border: 2px solid var(--border-color);
+    background: white;
+    border: 2px solid transparent;
     padding: 0.75rem;
     border-radius: 8px;
     cursor: pointer;
@@ -164,6 +161,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .tool-btn svg {
@@ -171,8 +169,8 @@ body {
 }
 
 .tool-btn:hover {
-    background: var(--bg-lighter);
     border-color: var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
 }
 
 .tool-btn.active {
@@ -192,7 +190,7 @@ body {
     border-radius: 8px;
     cursor: pointer;
     margin-bottom: 1rem;
-    transition: border-color 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .color-picker:hover {
@@ -212,20 +210,20 @@ body {
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .color-preset:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
     border-color: var(--primary-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 /* Brush Size */
 .slider {
     width: 100%;
     height: 6px;
-    background: var(--bg-light);
+    background: var(--bg-dark);
     border-radius: 3px;
     outline: none;
     margin-bottom: 1rem;
@@ -238,6 +236,7 @@ body {
     background: var(--primary-color);
     border-radius: 50%;
     cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .slider::-moz-range-thumb {
@@ -247,6 +246,7 @@ body {
     border-radius: 50%;
     cursor: pointer;
     border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .size-preview {
@@ -265,7 +265,7 @@ body {
 
 .size-preview-circle::before {
     content: '';
-    background: var(--text-light);
+    background: var(--text-primary);
     border-radius: 50%;
     display: block;
 }
@@ -278,7 +278,7 @@ body {
 /* Action Buttons */
 .action-btn {
     width: 100%;
-    background: var(--bg-light);
+    background: white;
     border: 1px solid var(--border-color);
     color: var(--text-primary);
     padding: 0.75rem;
@@ -289,9 +289,9 @@ body {
     gap: 0.5rem;
     justify-content: center;
     font-size: 0.9rem;
-    font-weight: 500;
     margin-bottom: 0.5rem;
     transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .action-btn svg {
@@ -299,19 +299,17 @@ body {
 }
 
 .action-btn:hover {
-    background: var(--bg-lighter);
+    background: var(--bg-light);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
 }
 
 .action-btn:hover svg {
-    fill: var(--text-primary);
+    fill: var(--primary-color);
 }
 
 .action-btn.danger {
-    color: var(--danger-color);
-}
-
-.action-btn.danger svg {
-    fill: var(--danger-color);
+    border-color: var(--danger-color);
 }
 
 .action-btn.danger:hover {
@@ -359,9 +357,8 @@ body {
 /* Canvas Container */
 .canvas-container {
     position: relative;
-    background: #F0F2F5;
+    background: #FFFFFF;
     overflow: hidden;
-    border: 1px solid var(--border-color);
 }
 
 #canvas {
@@ -418,12 +415,12 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: var(--bg-medium);
+    background: white;
     border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 1.1rem;
-    min-width: 220px;
-    max-width: 260px;
+    border-radius: 8px;
+    padding: 1rem;
+    min-width: 200px;
+    max-width: 250px;
     max-height: 400px;
     overflow-y: auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -431,14 +428,13 @@ body {
 }
 
 .users-box h3 {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     margin-bottom: 0.75rem;
     color: var(--text-primary);
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.6rem;
+    padding-bottom: 0.5rem;
     text-transform: uppercase;
     font-weight: 600;
-    letter-spacing: 0.5px;
 }
 
 .users-list {
@@ -451,23 +447,22 @@ body {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.65rem;
+    padding: 0.6rem;
     background: var(--bg-light);
-    border-radius: 7px;
+    border-radius: 6px;
     transition: background 0.2s;
 }
 
 .user-item:hover {
-    background: var(--bg-lighter);
+    background: var(--bg-medium);
 }
 
 .user-color {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     border: 2px solid var(--border-color);
     flex-shrink: 0;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .user-name {
@@ -494,12 +489,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--bg-lighter);
+    background: var(--bg-darker);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-dim);
+    background: var(--primary-color);
 }
 
 ::-webkit-scrollbar-thumb:hover {
