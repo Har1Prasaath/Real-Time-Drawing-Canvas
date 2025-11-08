@@ -9,7 +9,7 @@
 
 1. **Clone the repository**
 ```bash
-git clone <https://github.com/Har1Prasaath/Real-Time-Drawing-Canvas>
+git clone https://github.com/Har1Prasaath/Real-Time-Drawing-Canvas
 cd Real-Time-Drawing-Canvas
 ```
 
