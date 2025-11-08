@@ -41,8 +41,7 @@ http://localhost:3000
 3. Make sure all devices are on the same network.
 
 ### Through Internet 
-1. Access the website from: <https://real-time-drawing-canvas.onrender.com/>
-<br>
+1. Access the website from: <https://real-time-drawing-canvas.onrender.com/><br>
 **NOTE:** The Hosted website can be slow make sure the website is connected (green dot at top right corner).
 
 ## Limitations
