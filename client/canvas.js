@@ -8,7 +8,7 @@ class CanvasManager {
     this.canvas = canvasElement;
     this.ctx = canvasElement.getContext('2d', { 
       willReadFrequently: false,
-      alpha: false 
+      alpha: true 
     });
     
     // Drawing state
@@ -61,6 +61,10 @@ class CanvasManager {
     // Resize
     this.canvas.width = container.clientWidth;
     this.canvas.height = container.clientHeight;
+    
+    // Fill with white background first
+    this.ctx.fillStyle = '#FFFFFF';
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     
     // Restore content
     this.ctx.drawImage(tempCanvas, 0, 0);
@@ -203,9 +207,14 @@ class CanvasManager {
    * Draw a line between two points
    */
   drawLine(from, to) {
-    this.ctx.strokeStyle = this.tool === 'eraser' ? '#FFFFFF' : this.color;
+    if (this.tool === 'eraser') {
+      this.ctx.globalCompositeOperation = 'destination-out';
+      this.ctx.strokeStyle = 'rgba(0,0,0,1)'; // Color doesn't matter for destination-out
+    } else {
+      this.ctx.globalCompositeOperation = 'source-over';
+      this.ctx.strokeStyle = this.color;
+    }
     this.ctx.lineWidth = this.lineWidth;
-    this.ctx.globalCompositeOperation = this.tool === 'eraser' ? 'destination-out' : 'source-over';
     
     this.ctx.lineTo(to.x, to.y);
     this.ctx.stroke();
@@ -218,9 +227,16 @@ class CanvasManager {
     if (!path.points || path.points.length === 0) return;
     
     this.ctx.save();
-    this.ctx.strokeStyle = path.tool === 'eraser' ? '#FFFFFF' : path.color;
+    
+    if (path.tool === 'eraser') {
+      this.ctx.globalCompositeOperation = 'destination-out';
+      this.ctx.strokeStyle = 'rgba(0,0,0,1)'; // Color doesn't matter for destination-out
+    } else {
+      this.ctx.globalCompositeOperation = 'source-over';
+      this.ctx.strokeStyle = path.color;
+    }
+    
     this.ctx.lineWidth = path.lineWidth;
-    this.ctx.globalCompositeOperation = path.tool === 'eraser' ? 'destination-out' : 'source-over';
     this.ctx.lineCap = 'round';
     this.ctx.lineJoin = 'round';
     
@@ -240,9 +256,15 @@ class CanvasManager {
    */
   drawPathSegment(point, color, lineWidth, tool = 'brush') {
     this.ctx.save();
-    this.ctx.strokeStyle = tool === 'eraser' ? '#FFFFFF' : color;
-    this.ctx.lineWidth = lineWidth;
-    this.ctx.globalCompositeOperation = tool === 'eraser' ? 'destination-out' : 'source-over';
+    
+    if (tool === 'eraser') {
+      this.ctx.globalCompositeOperation = 'destination-out';
+      this.ctx.fillStyle = 'rgba(0,0,0,1)'; // Color doesn't matter for destination-out
+    } else {
+      this.ctx.globalCompositeOperation = 'source-over';
+      this.ctx.fillStyle = color;
+    }
+    
     this.ctx.lineCap = 'round';
     this.ctx.lineJoin = 'round';
     
@@ -269,8 +291,11 @@ class CanvasManager {
    * Clear the canvas
    */
   clearCanvas() {
+    this.ctx.save();
+    this.ctx.globalCompositeOperation = 'source-over';
     this.ctx.fillStyle = '#FFFFFF';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.restore();
   }
 
   /**
