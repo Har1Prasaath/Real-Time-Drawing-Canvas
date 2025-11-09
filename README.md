@@ -49,5 +49,5 @@ http://localhost:3000
 2. **No Export Option**: You can’t save or download your drawing at the moment.
 3. **No Import Feature**: It’s not possible to open or load a pre-drawn canvas.
 
-## Time Spent: **4 days**
+## Time Spent: **3 days**
 
