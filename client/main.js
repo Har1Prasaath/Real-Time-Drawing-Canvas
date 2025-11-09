@@ -182,8 +182,23 @@ function setupUIHandlers() {
   });
   
   document.getElementById('clearBtn').addEventListener('click', () => {
-    if (confirm('Clear the entire canvas? This cannot be undone.')) {
-      app.ws.sendClearCanvas();
+    showConfirmModal();
+  });
+  
+  // Modal event handlers
+  document.getElementById('modalCancel').addEventListener('click', () => {
+    hideConfirmModal();
+  });
+  
+  document.getElementById('modalConfirm').addEventListener('click', () => {
+    app.ws.sendClearCanvas();
+    hideConfirmModal();
+  });
+  
+  // Close modal on outside click
+  document.getElementById('confirmModal').addEventListener('click', (e) => {
+    if (e.target.id === 'confirmModal') {
+      hideConfirmModal();
     }
   });
   
@@ -370,33 +385,34 @@ function showNotification(message, type = 'info') {
 }
 
 /**
- * Start performance monitoring
+ * Show confirmation modal
  */
-function startPerformanceMonitoring() {
-  let frameCount = 0;
-  let lastTime = Date.now();
+function showConfirmModal() {
+  const modal = document.getElementById('confirmModal');
+  modal.classList.add('show');
   
-  function updateStats() {
-    frameCount++;
-    const now = Date.now();
-    
-    if (now - lastTime >= 1000) {
-      // Update FPS
-      const fps = Math.round(frameCount * 1000 / (now - lastTime));
-      document.getElementById('fpsCounter').textContent = fps;
-      
-      // Update latency
-      const latency = app.ws.getLatency();
-      document.getElementById('latencyCounter').textContent = `${latency}ms`;
-      
-      frameCount = 0;
-      lastTime = now;
-    }
-    
-    requestAnimationFrame(updateStats);
+  // Add escape key listener
+  document.addEventListener('keydown', handleModalEscape);
+}
+
+/**
+ * Hide confirmation modal
+ */
+function hideConfirmModal() {
+  const modal = document.getElementById('confirmModal');
+  modal.classList.remove('show');
+  
+  // Remove escape key listener
+  document.removeEventListener('keydown', handleModalEscape);
+}
+
+/**
+ * Handle escape key to close modal
+ */
+function handleModalEscape(e) {
+  if (e.key === 'Escape') {
+    hideConfirmModal();
   }
-  
-  updateStats();
 }
 
 // Initialize app when DOM is loaded
